@@ -6,6 +6,7 @@
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2( -89, 156 )
+color = Color( 0.392157, 0.231373, 0.0627451, 1 )
 polygon = PoolVector2Array( -232, 168, 93, 165, 751, 169, 744, -154, 643, -53, 551, -73, 446, -2, 287, -40, 200, 22, -2, -31, -57, 4, -213, -75, -324, -48, -448, -165, -548, 8, -546, 171 )
 script = ExtResource( 1 )
 
