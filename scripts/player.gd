@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 signal fuel_updated(fuel_amount)
-signal killed()
+signal killed(lives)
 
 var horizontal_acceleration:= 0.5
 var jetpack_acceleration := 2
@@ -13,6 +13,9 @@ onready var fuel_amount = max_fuel setget _set_fuel
 var fuel_decrease_speed := 2
 onready var invulnerability_timer = $InvulnerabilityTimer
 
+func _ready():
+	print("Lives: ", Lives.player_lives)
+
 func on_killed():
 	pass
 
@@ -22,7 +25,8 @@ func _set_fuel(value):
 	if fuel_amount != prev_fuel:
 		emit_signal("fuel_updated", fuel_amount)
 		if fuel_amount == 0:
-			emit_signal("killed")
+			Lives.player_lives -= 1
+			emit_signal("killed", Lives.player_lives)
 			on_killed()
 			
 func damageFuel(amount):
