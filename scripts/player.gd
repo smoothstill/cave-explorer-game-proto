@@ -3,88 +3,93 @@ extends KinematicBody2D
 signal fuel_updated(fuel_amount)
 signal killed(lives)
 
-var horizontal_acceleration:= 1.0
-var jetpack_acceleration := 15
-var velocity := Vector2(0.0, 0.0)
-var gravity := 5
-var bounce_coefficent = 1.0
-export var max_fuel := 100.0
-onready var fuel_amount = max_fuel setget _set_fuel
-var fuel_decrease_speed := 10
-onready var invulnerability_timer = $InvulnerabilityTimer
-onready var animation_player = $AnimationPlayer
-onready var player_sprite = $Sprite
-onready var guide = $Guide
+var _horizontal_acceleration:= 1.0
+var _jetpack_acceleration := 15
+var _velocity := Vector2(0.0, 0.0)
+var _gravity := 5
+var _bounce_coefficent = 1.0
+export var _max_fuel := 100.0
+onready var _fuel_amount = _max_fuel setget _set_fuel, get_fuel
+var _fuel_decrease_speed := 10
+onready var _invulnerability_timer = $InvulnerabilityTimer
+onready var _animation_player = $AnimationPlayer
+onready var _player_sprite = $Sprite
+onready var _guide = $Guide
 
-var max_vertical_speed := 5
-var min_vertical_speed := -5
-var max_horizontal_speed := 4
-var min_horizontal_speed := -4
+var _max_vertical_speed := 5
+var _min_vertical_speed := -5
+var _max_horizontal_speed := 4
+var _min_horizontal_speed := -4
 
-var has_moved = false
+var _has_moved = false
+var _is_dead = false
 
-enum states {IDLE, MOVE}
-var state = states.IDLE
+enum _states {IDLE, MOVE}
+var _state = _states.IDLE
 
 func _ready():
-	animation_player.play("Idle")
+	_animation_player.play("Idle")
 
 func on_killed():
 	pass
 	
 func clampVelocity(vel:Vector2):
-	return Vector2(clamp(vel.x, min_horizontal_speed, max_horizontal_speed), clamp(vel.y, min_vertical_speed, max_vertical_speed))
+	return Vector2(clamp(vel.x, _min_horizontal_speed, _max_horizontal_speed), clamp(vel.y, _min_vertical_speed, _max_vertical_speed))
+	
+func get_fuel():
+	return _fuel_amount
 	
 func _set_fuel(value):
-	var prev_fuel = fuel_amount
-	fuel_amount = clamp(value, 0, max_fuel)
-	if fuel_amount != prev_fuel:
-		emit_signal("fuel_updated", fuel_amount)
-		if fuel_amount == 0:
-			player_sprite.visible = false
+	var prev_fuel = _fuel_amount
+	_fuel_amount = clamp(value, 0, _max_fuel)
+	if _fuel_amount != prev_fuel:
+		emit_signal("fuel_updated", _fuel_amount)
+		if _fuel_amount == 0:
+			_player_sprite.visible = false
+			_is_dead = true
 			Lives.player_lives -= 1
 			emit_signal("killed", Lives.player_lives)
 			on_killed()
 			
 func damageFuel(amount):
-	if invulnerability_timer.is_stopped():
-		invulnerability_timer.start()
-		_set_fuel(fuel_amount - amount)
+	if _invulnerability_timer.is_stopped():
+		_invulnerability_timer.start()
+		_set_fuel(_fuel_amount - amount)
 		
 func reduceFuel(amount):
-	_set_fuel(fuel_amount - amount)
+	_set_fuel(_fuel_amount - amount)
 		
 func addFuel(amount):
-	_set_fuel(fuel_amount + amount)
+	_set_fuel(_fuel_amount + amount)
 		
 func _process(delta):
 	var vertical_speed = 0
 	var horizontal_speed = 0
 	if Input.is_action_pressed("jump"):
-		if !has_moved: 
-			has_moved = true
-			guide.visible = false
-		vertical_speed -= delta * jetpack_acceleration
-		reduceFuel(delta*fuel_decrease_speed)
-		if state != states.MOVE:
-			animation_player.play("Move")
-			state = states.MOVE
+		if !_has_moved: 
+			_has_moved = true
+			_guide.visible = false
+		vertical_speed -= delta * _jetpack_acceleration
+		reduceFuel(delta*_fuel_decrease_speed)
+		if _state != _states.MOVE:
+			_animation_player.play("Move")
+			_state = _states.MOVE
 	else:
-		if state != states.IDLE:
-			animation_player.play("Idle")
-			state = states.IDLE
-	if (has_moved):
-		vertical_speed += delta * gravity # Gravity
-		horizontal_speed += delta * horizontal_acceleration
-		velocity += Vector2(horizontal_speed, vertical_speed)
-		velocity = clampVelocity(velocity)
+		if _state != _states.IDLE:
+			_animation_player.play("Idle")
+			_state = _states.IDLE
+	if (_has_moved and !_is_dead):
+		vertical_speed += delta * _gravity
+		horizontal_speed += delta * _horizontal_acceleration
+		_velocity += Vector2(horizontal_speed, vertical_speed)
+		_velocity = clampVelocity(_velocity)
 		# print(velocity)
-		var collision = move_and_collide(velocity)
+		var collision = move_and_collide(_velocity)
 		if collision != null:
 			# Damage taken is based on impact velocity
-			var damage_taken = 5 * pow(velocity.length(), 1.25)
+			var damage_taken = 5 * pow(_velocity.length(), 1.25)
 			var motion = collision.normal.reflect(collision.remainder.normalized())
-			velocity = collision.normal.reflect(velocity.normalized())*bounce_coefficent
-			velocity.x = -velocity.x
+			_velocity = collision.normal.reflect(_velocity.normalized())*_bounce_coefficent
+			_velocity.x = -_velocity.x
 			damageFuel(damage_taken)
 			move_and_collide(motion)
