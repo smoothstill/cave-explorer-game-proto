@@ -1,6 +1,6 @@
 extends Control
 
-onready var fuel_bar = $FuelBar
+onready var fuel_bar = $CanvasLayer/FuelBar
 
 func _ready():
 	var playernode = get_tree().get_root().find_node("Player", true, false)

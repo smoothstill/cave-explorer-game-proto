@@ -4,38 +4,35 @@ extends Node
 enum states {MAINMENU, GAMEPLAY, VICTORY}
 
 # Start the game in main menu
-var current_state = states.MAINMENU setget _set_state
+var current_state = states.MAINMENU setget set_state, get_state
 
 # Set the state of the game
-func _set_state(state):
+func set_state(state):
 	# Do nothing is state does not change
 	if state == current_state:
-		print("Error: State did not change! ", state)
+		print("Warning: State did not change! ", state)
 		return
-	var previous_state = current_state
-	current_state = state
-	leaving(previous_state)
-	entered(current_state)
+	_entered(state)
+	
+func get_state():
+	return current_state
 
 # Actions to do when entering a new state
-func entered(state):
+func _entered(state):
 	if state == states.MAINMENU:
-		# TODO: Enter the main menu
+		current_state = state
+		print("State set to MAINMENU")
+		get_tree().change_scene("res://scenes/MainMenu.tscn")
 		return
 	elif state == states.GAMEPLAY:
-		# Set player lives
+		print("State set to GAMEPLAY")
+		current_state = state
 		Lives.player_lives = 3
-		# TODO: Enter the first level
+		LevelManager.load_first_level()
 		return
 	elif state == states.VICTORY:
-		# TODO: Enter the victory screen
+		current_state = state
+		get_tree().change_scene("res://scenes/VictoryMenu.tscn")
 		return
-
-# Not used for now	
-func leaving(state):
-	if state == states.MAINMENU:
-		return
-	elif state == states.GAMEPLAY:
-		return
-	elif state == states.VICTORY:
-		return
+	else:
+		print("ERROR: Invalid game state ", state)

@@ -14,8 +14,8 @@ func _ready():
 	playernode.connect("killed", self, "_on_player_killed")
 
 func _on_player_killed(lives):
-	print("lives are ", lives)
 	if lives == 0:
+		LevelManager.set_level_state(LevelManager.states.STOPPED)
 		player_lost = true
 		retry_button.visible = false
 		main_menu_button.grab_focus()
@@ -25,13 +25,11 @@ func _on_player_killed(lives):
 
 func _on_Retry_pressed():
 	if !player_lost:
-		print("restart level")
-		get_tree().reload_current_scene()
 		# Restart level
+		get_tree().reload_current_scene()
 
 func _on_MainMenu_pressed():
-	# To main menu level
-	pass # Replace with function body.
+	GameStateManager.set_state(GameStateManager.states.MAINMENU)
 
 func _on_Quit_pressed():
 	get_tree().quit()
