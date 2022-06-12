@@ -61,3 +61,10 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 2 )
 anims/Move = SubResource( 3 )
+
+[node name="Guide" type="Label" parent="."]
+margin_left = -84.0
+margin_top = -61.0
+margin_right = 104.0
+margin_bottom = -47.0
+text = "Start by pressing SPACE"

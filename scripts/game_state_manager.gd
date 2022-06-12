@@ -21,11 +21,9 @@ func get_state():
 func _entered(state):
 	if state == states.MAINMENU:
 		current_state = state
-		print("State set to MAINMENU")
 		get_tree().change_scene("res://scenes/MainMenu.tscn")
 		return
 	elif state == states.GAMEPLAY:
-		print("State set to GAMEPLAY")
 		current_state = state
 		Lives.player_lives = 3
 		LevelManager.load_first_level()

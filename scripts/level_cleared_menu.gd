@@ -7,7 +7,6 @@ onready var label = $CanvasLayer/Background/VBoxContainer/Label
 
 func _ready():
 	var node = get_tree().get_root().find_node("FinishArea", true, false)
-	print(node)
 	node.connect("level_clear", self, "_on_level_cleared")
 	_set_disabled(true)
 
@@ -23,9 +22,10 @@ func _set_disabled(value):
 		continue_button.grab_focus()
 
 func _on_level_cleared():
-	label.text = "Level " + str(LevelManager.current_level + 1) + " cleared!"
-	LevelManager.set_level_state(LevelManager.states.STOPPED)
-	_set_disabled(false)
+	if LevelManager.current_state != LevelManager.states.STOPPED:
+		label.text = "Level " + str(LevelManager.current_level + 1) + " cleared!"
+		LevelManager.set_level_state(LevelManager.states.STOPPED)
+		_set_disabled(false)
 
 func _on_Continue_pressed():
 	if LevelManager.has_next_level():

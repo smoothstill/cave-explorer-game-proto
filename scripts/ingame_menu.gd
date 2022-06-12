@@ -27,7 +27,7 @@ func _set_disabled(value):
 		print("WARNING: Cannot activate in-game menu right now")
 
 func _on_Continue_pressed():
-	_set_disabled(false)
+	_set_disabled(true)
 
 func _on_Menu_pressed():
 	GameStateManager.set_state(GameStateManager.states.MAINMENU)

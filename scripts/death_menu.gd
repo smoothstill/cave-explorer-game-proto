@@ -9,7 +9,6 @@ func _set_disabled(value):
 	# Shouldn't exist outside gameplay
 	if GameStateManager.get_state() == GameStateManager.states.GAMEPLAY:
 		if value == true:
-			print("visible = false")
 			menu.visible = false
 			disabled = true
 		else:
@@ -20,7 +19,7 @@ func _set_disabled(value):
 		# If player has no lives left, disable continue button
 		if Lives.player_lives == 0:
 			retry_button.visible = false
-			label.text = "GAME OVER!"
+			label.text = "Game over"
 		else:
 			retry_button.visible = true
 			label.text = "You died! Lives: " + str(Lives.player_lives)
@@ -37,12 +36,13 @@ func _ready():
 	playernode.connect("killed", self, "_on_player_killed")
 
 func _on_player_killed(lives):
-	_set_disabled(false)
+	if (LevelManager.current_state != LevelManager.states.STOPPED):
+		LevelManager.set_level_state(LevelManager.states.STOPPED)
+		_set_disabled(false)
 
 func _on_Retry_pressed():
 	# Restart level
-	if !disabled:
-		get_tree().reload_current_scene()
+	LevelManager.restart_level()
 
 func _on_Menu_pressed():
 	if !disabled:
@@ -50,5 +50,4 @@ func _on_Menu_pressed():
 
 func _on_Quit_pressed():
 	# Quit game
-	if !disabled:
-		get_tree().quit()
+	get_tree().quit()
