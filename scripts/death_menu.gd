@@ -1,6 +1,7 @@
 extends Control
 
 onready var retry_button = $CanvasLayer/Background/VBoxContainer/Retry
+onready var menu_button = $CanvasLayer/Background/VBoxContainer/Menu
 onready var label = $CanvasLayer/Background/VBoxContainer/Label
 onready var menu = $CanvasLayer/Background
 var disabled = false setget _set_disabled
@@ -19,6 +20,7 @@ func _set_disabled(value):
 		# If player has no lives left, disable continue button
 		if Lives.player_lives == 0:
 			retry_button.visible = false
+			menu_button.grab_focus()
 			label.text = "Game over"
 		else:
 			retry_button.visible = true

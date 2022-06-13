@@ -15,6 +15,10 @@ onready var _invulnerability_timer = $InvulnerabilityTimer
 onready var _animation_player = $AnimationPlayer
 onready var _player_sprite = $Sprite
 onready var _guide = $Guide
+onready var _jetpack_sound = $JetpackSound
+onready var _collision_sound = $CollisionSound
+onready var _explosion_sound = $ExplosionSound
+onready var _fuel_pickup_sound = $AddFuelSound
 
 var _max_vertical_speed := 5
 var _min_vertical_speed := -5
@@ -47,6 +51,8 @@ func _set_fuel(value):
 		if _fuel_amount == 0:
 			_player_sprite.visible = false
 			_is_dead = true
+			if _explosion_sound.playing == false:
+				_explosion_sound.play()
 			Lives.player_lives -= 1
 			emit_signal("killed", Lives.player_lives)
 			on_killed()
@@ -60,12 +66,18 @@ func reduceFuel(amount):
 	_set_fuel(_fuel_amount - amount)
 		
 func addFuel(amount):
+	if _fuel_pickup_sound.playing == false:
+		_fuel_pickup_sound.play()
 	_set_fuel(_fuel_amount + amount)
 		
 func _process(delta):
 	var vertical_speed = 0
 	var horizontal_speed = 0
 	if Input.is_action_pressed("jump"):
+		if !_jetpack_sound.playing and !_is_dead:
+			_jetpack_sound.play()
+		elif _jetpack_sound.playing and _is_dead:
+			_jetpack_sound.stop()
 		if !_has_moved: 
 			_has_moved = true
 			_guide.visible = false
@@ -78,6 +90,7 @@ func _process(delta):
 		if _state != _states.IDLE:
 			_animation_player.play("Idle")
 			_state = _states.IDLE
+			_jetpack_sound.stop()
 	if (_has_moved and !_is_dead):
 		vertical_speed += delta * _gravity
 		horizontal_speed += delta * _horizontal_acceleration
@@ -93,3 +106,5 @@ func _process(delta):
 			_velocity.x = -_velocity.x
 			damageFuel(damage_taken)
 			move_and_collide(motion)
+			if _collision_sound.playing == false:
+				_collision_sound.play()
