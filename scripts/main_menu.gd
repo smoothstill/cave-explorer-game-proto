@@ -1,9 +1,9 @@
 extends Control
 
-onready var start_button = $CanvasLayer/Background/VBoxContainer/Start
+onready var _start_button = $CanvasLayer/Background/VBoxContainer/Start
 
 func _ready():
-	start_button.grab_focus()
+	_start_button.grab_focus()
 
 func _on_Start_pressed():
 	GameStateManager.set_state(GameStateManager.states.GAMEPLAY)

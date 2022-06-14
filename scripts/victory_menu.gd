@@ -1,9 +1,9 @@
 extends Control
 
-onready var menu_button = $CanvasLayer/Background/VBoxContainer/Menu
+onready var _menu_button = $CanvasLayer/Background/VBoxContainer/Menu
 
 func _ready():
-	menu_button.grab_focus()
+	_menu_button.grab_focus()
 
 func _on_Menu_pressed():
 	GameStateManager.set_state(GameStateManager.states.MAINMENU)

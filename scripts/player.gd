@@ -72,7 +72,7 @@ func addFuel(amount):
 		
 func _process(delta):
 	# Only process if level has not stopped
-	if LevelManager.current_state == LevelManager.states.STOPPED:
+	if LevelManager.get_level_state() == LevelManager.states.STOPPED:
 		if _jetpack_sound.playing:
 			_jetpack_sound.stop()
 		return

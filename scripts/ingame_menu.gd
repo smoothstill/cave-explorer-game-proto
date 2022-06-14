@@ -1,28 +1,28 @@
 extends Control
 
-onready var continue_button = $CanvasLayer/Background/VBoxContainer/Continue
-onready var menu = $CanvasLayer/Background
-var disabled = true setget _set_disabled
+onready var _continue_button = $CanvasLayer/Background/VBoxContainer/Continue
+onready var _menu = $CanvasLayer/Background
+var _disabled = true setget _set_disabled
 
 func _ready():
 	_set_disabled(true)
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
-		_set_disabled(!disabled)
+		_set_disabled(!_disabled)
 
 func _set_disabled(value):
 	# Shouldn't exist outside gameplay
 	if GameStateManager.get_state() == GameStateManager.states.GAMEPLAY and LevelManager.get_level_state() != LevelManager.states.STOPPED:
 		if value == false:
 			LevelManager.set_level_state(LevelManager.states.PAUSED)
-			menu.visible = true
-			disabled = false
-			continue_button.grab_focus()
+			_menu.visible = true
+			_disabled = false
+			_continue_button.grab_focus()
 		else:
 			LevelManager.set_level_state(LevelManager.states.RUNNING)
-			menu.visible = false
-			disabled = true
+			_menu.visible = false
+			_disabled = true
 	else:
 		print("WARNING: Cannot activate in-game menu right now")
 

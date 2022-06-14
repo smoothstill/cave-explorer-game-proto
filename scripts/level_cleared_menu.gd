@@ -1,9 +1,9 @@
 extends Control
 
-var disabled = true setget _set_disabled
-onready var menu = $CanvasLayer/Background
-onready var continue_button = $CanvasLayer/Background/VBoxContainer/Continue
-onready var label = $CanvasLayer/Background/VBoxContainer/Label
+var _disabled = true setget _set_disabled
+onready var _menu = $CanvasLayer/Background
+onready var _continue_button = $CanvasLayer/Background/VBoxContainer/Continue
+onready var _label = $CanvasLayer/Background/VBoxContainer/Label
 
 func _ready():
 	var node = get_tree().get_root().find_node("FinishArea", true, false)
@@ -12,18 +12,18 @@ func _ready():
 
 func _set_disabled(value):
 	if (value == true):
-		menu.visible = false
-		disabled = true
+		_menu.visible = false
+		_disabled = true
 		get_tree().paused = false
 	else:
-		menu.visible = true
-		disabled = false
+		_menu.visible = true
+		_disabled = false
 		get_tree().paused = true
-		continue_button.grab_focus()
+		_continue_button.grab_focus()
 
 func _on_level_cleared():
-	if LevelManager.current_state != LevelManager.states.STOPPED:
-		label.text = "Level " + str(LevelManager.current_level + 1) + " cleared!"
+	if LevelManager.get_level_state() != LevelManager.states.STOPPED:
+		_label.text = "Level " + str(LevelManager.get_level_id() + 1) + " cleared!"
 		LevelManager.set_level_state(LevelManager.states.STOPPED)
 		_set_disabled(false)
 

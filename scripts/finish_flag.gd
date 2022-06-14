@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var flag = $AnimationPlayer
+onready var _flag = $AnimationPlayer
 
 func _ready():
-	flag.play("Idle")
+	_flag.play("Idle")
