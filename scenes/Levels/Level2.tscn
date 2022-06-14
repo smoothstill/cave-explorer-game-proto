@@ -1,0 +1,193 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/FinishArea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/collision_polygon.gd" type="Script" id=4]
+[ext_resource path="res://scenes/FinishFlag.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/SpeedBuff.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/FuelCanister.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/SpeedDebuff.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Arrow.tscn" type="PackedScene" id=9]
+
+[node name="Level3" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -496.0
+margin_top = -3776.0
+margin_right = 20448.0
+margin_bottom = 3208.0
+color = Color( 0.247059, 0.254902, 0.372549, 1 )
+
+[node name="Arrow" parent="." instance=ExtResource( 9 )]
+position = Vector2( 12840, -864 )
+rotation = 0.71455
+
+[node name="Arrow2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 9336, -224 )
+rotation = 0.71455
+
+[node name="Arrow5" parent="." instance=ExtResource( 9 )]
+position = Vector2( 6648, 392 )
+rotation = 0.71455
+
+[node name="Arrow7" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1936, 328 )
+rotation = 1.57352
+
+[node name="Arrow6" parent="." instance=ExtResource( 9 )]
+position = Vector2( 8040, -72.0002 )
+rotation = 2.27997
+
+[node name="Arrow3" parent="." instance=ExtResource( 9 )]
+position = Vector2( 10840, -376 )
+rotation = 0.71455
+
+[node name="Arrow4" parent="." instance=ExtResource( 9 )]
+position = Vector2( 11432, -680 )
+rotation = 0.71455
+
+[node name="Polygon2D12" type="Polygon2D" parent="."]
+position = Vector2( -632, -3520 )
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 18808, 2368, 18840, 2368, 18872, 2440, 18912, 2600, 18960, 2704, 19000, 2864, 19080, 3048, 19176, 3184, 19272, 3232, 19360, 3208, 19520, 3232, 19640, 3184, 19776, 3224, 19912, 3224, 20072, 3160, 20256, 3208, 20392, 3192, 20544, 3216, 20656, 3192, 20792, 3192, 20792, 3584, 18808, 3584 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D12"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 328, 112, 456, 168, 656, 112, 832, 224, 1664, 224, 1664, -320, -128, -320, -128, 128, 96, 72 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D"]
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( -128, 352, 72, 264, 272, 264, 456, 416, 712, 440, 832, 352, 1664, 352, 1664, 704, -128, 704 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D2"]
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 1664, 224, 1968, 144, 2160, 200, 2416, 88, 2648, 184, 2840, 128, 3064, 192, 3376, 120, 3608, 192, 3896, 112, 4240, 168, 4432, 112, 4768, 160, 5072, 104, 5416, 176, 5800, 112, 6120, 192, 6504, 72, 6504, -384, 1664, -384 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D3"]
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 1664, 352, 1880, 496, 2048, 504, 2496, 608, 2752, 544, 3040, 584, 3336, 600, 3584, 544, 3832, 600, 3936, 560, 4304, 576, 4512, 544, 4848, 608, 5128, 560, 5464, 600, 5688, 560, 5960, 568, 6240, 552, 6528, 560, 6528, 896, 1664, 896 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D4"]
+
+[node name="Polygon2D5" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 6504, 72, 6896, 128, 7168, 32, 7464, -128, 7776, -216, 8080, -368, 8424, -448, 8672, -584, 8672, -952, 6504, -944 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D5"]
+
+[node name="Polygon2D6" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 6528, 560, 6928, 616, 7128, 560, 7464, 440, 7696, 320, 7984, 240, 8304, 128, 8640, 0, 8640, 896, 6528, 888 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D6"]
+
+[node name="Polygon2D7" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 8640, 0, 9024, -40, 9288, 24, 9752, 232, 10184, 240, 10672, 80, 11048, -208, 11400, -344, 11800, -528, 12288, -704, 12288, 896, 8640, 896 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D7"]
+
+[node name="Polygon2D8" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 8672, -584, 9008, -624, 9448, -480, 9768, -336, 10192, -312, 10496, -488, 10848, -712, 11416, -968, 12288, -1152, 12288, -1792, 8640, -1784 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D8"]
+
+[node name="Polygon2D9" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 12288, -704, 12672, -752, 13064, -704, 13472, -776, 13880, -736, 13880, -960, 13952, -960, 13952, -736, 14448, -688, 14936, -776, 14936, -1000, 15000, -1000, 15000, -784, 15408, -744, 15888, -824, 16264, -744, 16800, -848, 17232, -816, 17712, -880, 17976, -992, 18176, -1152, 18176, -128, 12288, -128 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D9"]
+
+[node name="Polygon2D10" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 12288, -1152, 12664, -1200, 13048, -1168, 13480, -1224, 13992, -1248, 14456, -1224, 14968, -1272, 15408, -1256, 15776, -1288, 16256, -1264, 16752, -1232, 17152, -1344, 17488, -1352, 17848, -1328, 18176, -1280, 18176, -1792, 12288, -1792 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D10"]
+
+[node name="Polygon2D11" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( 18176, -1280, 18304, -1280, 18360, -1200, 18392, -1088, 18432, -976, 18472, -840, 18528, -728, 18592, -616, 18640, -496, 18744, -512, 18856, -608, 19024, -632, 19200, -568, 19352, -608, 19464, -664, 19632, -648, 19784, -584, 19928, -616, 20096, -640, 20096, -1792, 18176, -1792 )
+script = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D11"]
+
+[node name="SpeedBuff" parent="." instance=ExtResource( 6 )]
+position = Vector2( 864, 288 )
+
+[node name="SpeedBuff2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1000, 288 )
+
+[node name="SpeedBuff3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1136, 288 )
+
+[node name="SpeedBuff4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1264, 288 )
+
+[node name="SpeedBuff5" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1400, 288 )
+
+[node name="SpeedBuff6" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1536, 288 )
+
+[node name="SpeedBuff7" parent="." instance=ExtResource( 6 )]
+position = Vector2( 10640, -240 )
+
+[node name="SpeedBuff8" parent="." instance=ExtResource( 6 )]
+position = Vector2( 10720, -112 )
+
+[node name="SpeedBuff9" parent="." instance=ExtResource( 6 )]
+position = Vector2( 10552, -360 )
+
+[node name="FuelCanister" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1632, 288 )
+
+[node name="FinishFlag" parent="." instance=ExtResource( 5 )]
+position = Vector2( 19592, -384 )
+
+[node name="FinishArea" parent="." instance=ExtResource( 3 )]
+position = Vector2( 19584, -472 )
+scale = Vector2( 1, 20.36 )
+
+[node name="FuelCanister2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 14448, -1160 )
+
+[node name="FuelCanister4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 16464, -1056 )
+
+[node name="FuelCanister3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 18912, -392 )
+
+[node name="SpeedDebuff" parent="." instance=ExtResource( 8 )]
+position = Vector2( 18008, -1192 )
+
+[node name="SpeedDebuff2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 18248, -1224 )
+
+[node name="SpeedDebuff4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 18384, -920 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 512, 304 )
+
+[node name="InGameUI" parent="." instance=ExtResource( 2 )]

@@ -6,7 +6,7 @@ enum states {RUNNING, PAUSED, STOPPED}
 var _current_state = 0 setget set_level_state , get_level_state
 
 # Level scenes
-var levels = ["res://scenes/Levels/Level1.tscn"]
+var levels = ["res://scenes/Levels/Level1.tscn", "res://scenes/Levels/Level2.tscn"]
 
 func get_level_state():
 	return _current_state
@@ -17,7 +17,7 @@ func get_level_id():
 func set_level_state(state):
 	var previous_state = _current_state
 	if (state == previous_state):
-		print("WARNING: No level state changed!")
+		print("WARNING: Level state did not change!")
 		return
 	_entered(state)
 

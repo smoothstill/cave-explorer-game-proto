@@ -5,6 +5,7 @@ signal killed(lives)
 
 var _horizontal_acceleration:= 1.0
 var _jetpack_acceleration := 15
+var _horizontal_resistance := 2
 var _velocity := Vector2(0.0, 0.0)
 var _gravity := 5
 var _bounce_coefficent = 1.0
@@ -19,11 +20,13 @@ onready var _jetpack_sound = $JetpackSound
 onready var _collision_sound = $CollisionSound
 onready var _explosion_sound = $ExplosionSound
 onready var _fuel_pickup_sound = $AddFuelSound
+onready var _speed_debuff_sound = $SpeedDebuffSound
+onready var _speed_buff_sound = $SpeedBuffSound
 
 var _max_vertical_speed := 5
 var _min_vertical_speed := -5
-var _max_horizontal_speed := 4
-var _min_horizontal_speed := -4
+var _max_horizontal_speed := 6
+var _min_horizontal_speed := -6
 
 var _has_moved = false
 var _is_dead = false
@@ -34,14 +37,23 @@ var _state = _states.IDLE
 func _ready():
 	_animation_player.play("Idle")
 
-func on_killed():
+func _on_killed():
 	pass
 	
-func clampVelocity(vel:Vector2):
-	return Vector2(clamp(vel.x, _min_horizontal_speed, _max_horizontal_speed), clamp(vel.y, _min_vertical_speed, _max_vertical_speed))
+func _clampVelocity(vel:Vector2):
+	return Vector2(clamp(vel.x, _min_horizontal_speed, 9999), clamp(vel.y, _min_vertical_speed, _max_vertical_speed))
 	
 func get_fuel():
 	return _fuel_amount
+	
+func increase_horizontal_speed(value):
+	var speed_x = max(_velocity.x + value, 0)
+	_velocity = _clampVelocity(Vector2(speed_x, _velocity.y))
+	
+func decrease_velocity(amount):
+	var magnitude = _velocity.length()
+	var unit_vec = Vector2(_velocity).normalized()
+	_velocity = unit_vec * max(magnitude - amount, 0)
 	
 func _set_fuel(value):
 	var prev_fuel = _fuel_amount
@@ -55,7 +67,7 @@ func _set_fuel(value):
 				_explosion_sound.play()
 			Lives.player_lives -= 1
 			emit_signal("killed", Lives.player_lives)
-			on_killed()
+			_on_killed()
 			
 func damageFuel(amount):
 	if _invulnerability_timer.is_stopped():
@@ -69,6 +81,12 @@ func addFuel(amount):
 	if _fuel_pickup_sound.playing == false:
 		_fuel_pickup_sound.play()
 	_set_fuel(_fuel_amount + amount)
+	
+func play_debuff_sound():
+	_speed_debuff_sound.play()
+		
+func play_buff_sound():
+	_speed_buff_sound.play()
 		
 func _process(delta):
 	# Only process if level has not stopped
@@ -98,12 +116,14 @@ func _process(delta):
 	if (_has_moved):
 		vertical_speed += delta * _gravity
 		horizontal_speed += delta * _horizontal_acceleration
+		if _velocity.x > _max_horizontal_speed:
+			horizontal_speed -= delta * _horizontal_resistance
 		_velocity += Vector2(horizontal_speed, vertical_speed)
-		_velocity = clampVelocity(_velocity)
+		_velocity = _clampVelocity(_velocity)
 		var collision = move_and_collide(_velocity)
 		if collision != null:
 			# Damage taken is based on impact velocity
-			var damage_taken = 5 * pow(_velocity.length(), 1.25)
+			var damage_taken = 2.5 * pow(_velocity.length(), 1.25)
 			var motion = collision.normal.reflect(collision.remainder.normalized())
 			_velocity = collision.normal.reflect(_velocity.normalized())*_bounce_coefficent
 			_velocity.x = -_velocity.x

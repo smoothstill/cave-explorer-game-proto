@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/speed_debuff2.wav-cea641394f06644e16cd4c8dbab10ee6.sample"
+
+[deps]
+
+source_file="res://assets/sounds/speed_debuff2.wav"
+dest_files=[ "res://.import/speed_debuff2.wav-cea641394f06644e16cd4c8dbab10ee6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

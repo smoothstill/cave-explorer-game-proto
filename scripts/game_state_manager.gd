@@ -10,7 +10,7 @@ var _current_state = states.MAINMENU setget set_state, get_state
 func set_state(state):
 	# Do nothing is state does not change
 	if state == _current_state:
-		print("Warning: State did not change! ", state)
+		print("WARNING: State did not change! ", state)
 		return
 	_entered(state)
 	
