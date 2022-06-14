@@ -10,12 +10,12 @@
 [ext_resource path="res://scenes/SpeedDebuff.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Arrow.tscn" type="PackedScene" id=9]
 
-[node name="Level3" type="Node2D"]
+[node name="Level2" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -496.0
+margin_left = -2144.0
 margin_top = -3776.0
-margin_right = 20448.0
+margin_right = 23520.0
 margin_bottom = 3208.0
 color = Color( 0.247059, 0.254902, 0.372549, 1 )
 
@@ -191,3 +191,11 @@ position = Vector2( 18384, -920 )
 position = Vector2( 512, 304 )
 
 [node name="InGameUI" parent="." instance=ExtResource( 2 )]
+
+[node name="Polygon2D13" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( -128, 128, -2176, 128, -2176, -3776, 23552, -3776, 23552, -640, 20096, -640, 20096, -1792, 8640, -1784, 8664, -952, 6504, -944, 6504, -384, 1664, -384, 1664, -320, -128, -320 )
+
+[node name="Polygon2D14" type="Polygon2D" parent="."]
+color = Color( 0.384314, 0.392157, 0.443137, 1 )
+polygon = PoolVector2Array( -128, 352, -2176, 352, -2176, 3200, 23488, 3200, 23552, -328, 20160, -328, 20160, 64, 18176, 64, 18176, -128, 12288, -128, 12288, 896, 1664, 896, 1664, 704, -128, 704 )
