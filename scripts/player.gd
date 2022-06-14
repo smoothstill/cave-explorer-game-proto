@@ -71,32 +71,35 @@ func addFuel(amount):
 	_set_fuel(_fuel_amount + amount)
 		
 func _process(delta):
+	# Only process if level has not stopped
+	if LevelManager.current_state == LevelManager.states.STOPPED:
+		if _jetpack_sound.playing:
+			_jetpack_sound.stop()
+		return
 	var vertical_speed = 0
 	var horizontal_speed = 0
 	if Input.is_action_pressed("jump"):
-		if !_jetpack_sound.playing and !_is_dead:
-			_jetpack_sound.play()
-		elif _jetpack_sound.playing and _is_dead:
-			_jetpack_sound.stop()
+		# If moves for the first time
 		if !_has_moved: 
 			_has_moved = true
 			_guide.visible = false
 		vertical_speed -= delta * _jetpack_acceleration
-		reduceFuel(delta*_fuel_decrease_speed)
+		reduceFuel(delta * _fuel_decrease_speed)
 		if _state != _states.MOVE:
 			_animation_player.play("Move")
+			if !_jetpack_sound.playing:
+				_jetpack_sound.play()
 			_state = _states.MOVE
 	else:
 		if _state != _states.IDLE:
 			_animation_player.play("Idle")
-			_state = _states.IDLE
 			_jetpack_sound.stop()
-	if (_has_moved and !_is_dead):
+			_state = _states.IDLE
+	if (_has_moved):
 		vertical_speed += delta * _gravity
 		horizontal_speed += delta * _horizontal_acceleration
 		_velocity += Vector2(horizontal_speed, vertical_speed)
 		_velocity = clampVelocity(_velocity)
-		# print(velocity)
 		var collision = move_and_collide(_velocity)
 		if collision != null:
 			# Damage taken is based on impact velocity

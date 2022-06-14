@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/jetpack1.wav-cf42b64a86e95530bcfb5f8bd25e8ca9.sample"
+path="res://.import/jetpack2.wav-4c42e756ddffc70cd4f2124ad174e520.sample"
 
 [deps]
 
-source_file="res://assets/sounds/jetpack1.wav"
-dest_files=[ "res://.import/jetpack1.wav-cf42b64a86e95530bcfb5f8bd25e8ca9.sample" ]
+source_file="res://assets/sounds/jetpack2.wav"
+dest_files=[ "res://.import/jetpack2.wav-4c42e756ddffc70cd4f2124ad174e520.sample" ]
 
 [params]
 

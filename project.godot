@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 Lives="*res://scripts/lives.gd"
 LevelManager="*res://scripts/level_manager.gd"
 GameStateManager="*res://scripts/game_state_manager.gd"
+BackgroundMusic="*res://scenes/BackgroundMusic.tscn"
 
 [display]
 
