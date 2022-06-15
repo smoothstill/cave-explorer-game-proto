@@ -12,7 +12,7 @@ func _on_SpeedBuff_body_entered(body):
 		body.play_buff_sound()
 		queue_free()
 		
-func _process(delta):
+func _physics_process(delta):
 	if abs(_sprite.rotation + _rotate_speed * delta) > _max_rotation:
 		_dir *= -1
 	_sprite.rotate(_dir * _rotate_speed * delta)
