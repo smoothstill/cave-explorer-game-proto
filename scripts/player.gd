@@ -88,7 +88,7 @@ func play_debuff_sound():
 func play_buff_sound():
 	_speed_buff_sound.play()
 		
-func _process(delta):
+func _physics_process(delta):
 	# Only process if level has not stopped
 	if LevelManager.get_level_state() == LevelManager.states.STOPPED:
 		if _jetpack_sound.playing:

@@ -35,7 +35,7 @@ func _entered(state):
 
 func load_first_level():
 	_current_level = 0
-	_current_state = states.RUNNING
+	set_level_state(states.RUNNING)
 	get_tree().change_scene(levels[0])
 	
 func has_next_level():
@@ -43,9 +43,9 @@ func has_next_level():
 
 func to_next_level():
 	_current_level += 1
-	_current_state = states.RUNNING
+	set_level_state(states.RUNNING)
 	get_tree().change_scene(levels[_current_level])
 	
 func restart_level():
-	_current_state = states.RUNNING
+	set_level_state(states.RUNNING)
 	get_tree().reload_current_scene()
